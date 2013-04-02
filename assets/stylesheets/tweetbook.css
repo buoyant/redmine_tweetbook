@@ -1,0 +1,10 @@
+
+/******** top right user picture **********************/
+
+.tweetbook_image { padding: 2px; padding-right: 4px; vertical-align: top; }
+
+/**********************************************************************/
+/* ICONS
+/**********************************************************************/
+
+#admin-menu a.tweetbook { background-image: url(../images/tweetbook1_icon.png)}

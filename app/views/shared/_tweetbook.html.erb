@@ -1,0 +1,47 @@
+<!--
+ / tweetbook plugin
+ / adding facebook and twitter buttons in login page.
+ / 
+ -->
+<script type="text/javascript">
+$(document).ready(function(){
+
+/* 
+ *  login page
+ */
+<%  twitter_keys_present = !$tweetbook_settings['twitter']['key'].blank? && !$tweetbook_settings['twitter']['secret'].blank? ? true : false
+   
+   facebook_keys_present = !$tweetbook_settings['facebook']['key'].blank? && !$tweetbook_settings['facebook']['secret'].blank? ? true : false
+   
+   github_keys_present = !$tweetbook_settings['github']['key'].blank? && !$tweetbook_settings['github']['secret'].blank? ? true : false   
+%>
+var twitter_Btn = '', facebook_Btn = '', github_Btn = '';
+<% if twitter_keys_present %>
+   var twitter_Btn = '<%= link_to image_tag("twitterBtn.jpg", :plugin => "redmine_tweetbook"), "/auth/twitter" %>';
+<% end %>
+<% if facebook_keys_present %>
+   var facebook_Btn = '<%= link_to image_tag("facebookBtn.jpg", :plugin => "redmine_tweetbook"), "/auth/facebook" %>';
+<% end %>
+<% if github_keys_present %>
+   var github_Btn = '<%= link_to image_tag("githubBtn.jpg", :plugin => "redmine_tweetbook"), "/auth/github" %>';
+<% end %>
+
+<% if twitter_keys_present || facebook_keys_present || github_keys_present %>
+	$('#login-form table tbody tr:first').before('<tr><td colspan=2>'+ twitter_Btn +'&nbsp;&nbsp;&nbsp;&nbsp;'+ facebook_Btn +'&nbsp;&nbsp;&nbsp;&nbsp;'+ github_Btn +'</td></tr>');
+<% end %>
+
+/* 
+ * display current user twitter or facebook photo and authenticate via show at top right.
+ */
+
+ <% if tweetbook_user = TweetBook.current_user(User.current.id) %>
+	 <% if User.current.id == tweetbook_user.user_id %>
+	 	$("#loggedas").append($('<%= image_tag(tweetbook_user.image, :size => "20x20", :class => "tweetbook_image") %>'));
+		$("#loggedas").append('via <%= tweetbook_user.provider %>');		
+	<% end %>
+<% end %>	
+
+
+});
+
+</script>

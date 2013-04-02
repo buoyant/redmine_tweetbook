@@ -1,0 +1,14 @@
+# client ids for facebook, twitter, github
+# restart app if changes done here.
+
+facebook:
+  key: 158610857564697                               # App ID/API Key
+  secret: 6d3f60ab82791b2ceae7aa2a03710115           # App secret
+
+twitter:
+  key: XiDSaCWhCu78ItVLQxT1Yg                        # Consumer key
+  secret: 0Zz2yo1vMHjy2Vr9WMBvCtjttJi2vEyadgb8Bb05c  # Consumer secret
+
+github:
+  key: 79a50493ab87fe15a5d0                          # Client ID
+  secret: f3ae293ebb59c7288589fc8a4ca0c8e41b09ed3c   # Client Secret
