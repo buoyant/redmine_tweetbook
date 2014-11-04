@@ -1,0 +1,13 @@
+<% if @project.module_enabled?(:web_hook) %>
+    <%= form_tag({:controller => :tweet_book_settings, :action => :save, :project_id => @project, :tab => 'web_hook'}, :method => :put, :class => "tabular", :multipart => true, :id => 'tweet_book_settings') do %>
+        <div class="box">
+          <p>
+            <label><%= l(:field_web_hook_url) %></label>
+            <%= text_field_tag 'tweet_book_settings[web_hook_url]', TweetBookSetting[:web_hook_url, @project.id], :size => 60 %>
+          </p>
+        </div>
+        <%= submit_tag l(:button_save) %>
+    <% end %>
+<% else %>
+    <p class="nodata"><%= l(:label_helpdesk_enable_modules) %></p>
+<% end %>

@@ -1,3 +1,4 @@
 en:
   label_tweetbook: 'TweetBook'
-
+  field_web_hook_url: 'Web Hook URL'
+  label_web_hook: 'Web Hook'
