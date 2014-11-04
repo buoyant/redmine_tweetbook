@@ -8,7 +8,16 @@ module RedmineTweetbook
       def controller_issues_edit_after_save(context={})
         context[:issue].context = context
         issue = context[:issue]
-        `curl -X POST -H \"Content-Type: application/json\" -d '{\"title\": \"#{issue.subject}\", \"message\": \"#{issue.current_journal.notes}\", \"picture\": \"favicon.ico\"}' https://hall.com/api/1/services/generic/1d961fe36a330d3a2b1b377c5b92f617`
+        project = issue.project
+        if project.module_enabled?(:web_hook) && TweetBookSetting[:web_hook_url, project.id].present?
+          begin
+            `curl -X POST -H \"Content-Type: application/json\" -d '{\"title\": \"##{issue.id} #{issue.tracker.to_s} #{issue.project.to_s} #{issue.subject}\", \"message\": \"#{issue.current_journal.notes}\", \"picture\": \"images/logo.png\"}' #{TweetBookSetting[:web_hook_url, project.id]}`
+            # TODO: put this in logger
+            # puts "RedmineTweetBook - WebHook :: #{out}"
+          rescue => e
+            puts "RedmineTweetBook - WebHook :: #{e}"
+          end
+        end
       end
     end
 
@@ -16,8 +25,17 @@ module RedmineTweetbook
       def controller_issues_new_after_save(context={})
         context[:issue].context = context
         issue = context[:issue]
-        `curl -X POST -H \"Content-Type: application/json\" -d '{\"title\": \"#{issue.subject}\", \"message\": \"#{issue.description}\", \"picture\": \"favicon.ico\"}' https://hall.com/api/1/services/generic/1d961fe36a330d3a2b1b377c5b92f617`
-      end
+        project = issue.project
+        if project.module_enabled?(:web_hook) && TweetBookSetting[:web_hook_url, project.id].present?
+          begin
+            `curl -X POST -H \"Content-Type: application/json\" -d '{\"title\": \"##{issue.id} #{issue.tracker.to_s} #{issue.project.to_s} #{issue.subject}\", \"message\": \"#{issue.description}\", \"picture\": \"images/logo.png\"}'  #{TweetBookSetting[:web_hook_url, project.id]}`
+            # TODO: put this in logger
+            # puts "RedmineTweetBook - WebHook :: #{out}"
+          rescue => e
+            puts "RedmineTweetBook - WebHook :: #{e}"
+          end
+        end
+      end # def
     end
-  end
+  end # Hooks
 end

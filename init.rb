@@ -5,7 +5,7 @@ Redmine::Plugin.register :redmine_tweetbook do
   author 'sandeepleo11'
   description 'Facebook, Twitter, Github authentication plugin for Redmine.'
   version '1.0'
-  url 'http://github.com/sandeepleo11/redmine_tweetbook'
+  url 'http://github.com/buoyant/redmine_tweetbook'
   author_url 'mailto:me@sandeep.me'
 
   $tweetbook_settings = YAML::load(File.open("#{File.dirname(__FILE__)}/config/settings.yml"))
